@@ -1,0 +1,5 @@
+name,dims,max_length,similarity
+"all-distilroberta-v1",768,128,"l2_norm"
+"all-mpnet-base-v2",768,384,"l2_norm"
+"all-MiniLM-L12-v2",384,256,"l2_norm"
+"LaBSE",768,256,"cosine"

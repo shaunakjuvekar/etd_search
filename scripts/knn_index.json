@@ -1,0 +1,65 @@
+{
+  "properties": {
+    "id": {
+      "type": "keyword"
+    },
+    "title": {
+      "type": "text"
+    },
+    "author": {
+      "type": "text"
+    },
+    "advisor": {
+      "type": "keyword"
+    },
+    "abstract": {
+      "type": "text"
+    },
+    "university": {
+      "type": "keyword"
+    },
+    "degree": {
+      "type": "keyword"
+    },
+    "year": {
+      "type": "integer"
+    },
+    "department": {
+      "type": "keyword"
+    },
+    "discipline": {
+      "type": "keyword"
+    },
+    "source": {
+      "type": "keyword"
+    },
+    "xml_path": {
+      "type": "keyword"
+    },
+    "vector": {
+      "type": "dense_vector",
+      "dims": 768,
+      "index": "true",
+      "similarity": "l2_norm"
+    },
+    "chapters": {
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "title": {
+          "type": "text"
+        },
+        "topics": {
+          "type": "keyword"
+        },
+        "categories": {
+          "type": "keyword"
+        },
+        "summary": {
+          "type": "text"
+        }
+      }
+    }
+  }
+}

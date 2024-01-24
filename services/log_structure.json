@@ -1,0 +1,13 @@
+{
+    "properties": {
+      "user_id": {
+        "type": "keyword"
+      },
+	  "etds_read": {
+		"type": "keyword"
+	  },
+	  "search_queries": {
+		"type": "text"
+	  }
+    }
+  }

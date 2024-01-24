@@ -1,0 +1,90 @@
+{
+  "properties": {
+    "id": {
+      "type": "keyword"
+    },
+    "title": {
+      "type": "text"
+    },
+    "author": {
+      "type": "text"
+    },
+    "advisor": {
+      "type": "keyword"
+    },
+    "abstract": {
+      "type": "text"
+    },
+    "university": {
+      "type": "keyword"
+    },
+    "degree": {
+      "type": "keyword"
+    },
+    "year": {
+      "type": "integer"
+    },
+    "department": {
+      "type": "keyword"
+    },
+    "discipline": {
+      "type": "keyword"
+    },
+    "source": {
+      "type": "keyword"
+    },
+    "xml_path": {
+      "type": "keyword"
+    },
+    "abstract_vector": {
+      "type": "dense_vector",
+      "dims": 768,
+      "index": "true",
+      "similarity": "l2_norm"
+    },
+    "objects": {
+      "type": "nested",
+      "properties": {
+        "type": {
+          "type": "keyword"
+        },
+        "local_path": {
+          "type": "text"
+        },
+        "metadata": {
+          "properties": {
+            "bounding_box": {
+              "type": "text"
+            },
+            "page_number": {
+              "type": "integer"
+            },
+            "is_image": {
+              "type": "boolean"
+            }
+          }
+        },
+        "topics": {
+          "properties": {
+            "name": {
+              "type": "keyword"
+            },
+            "probability": {
+              "type": "float"
+            }
+          }
+        },
+        "summarization": {
+          "properties": {
+            "text": {
+              "type": "text"
+            },
+            "algorithm_used": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}

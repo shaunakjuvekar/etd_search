@@ -1,0 +1,216 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ETD Search Service",
+    "description": "This service is a part of the Virginia Tech CS 5604 Fall 2022 ETD Project. The service provides search and user management capabilities for ETDs.",
+    "termsOfService": "https://frontend.discovery.cs.vt.edu/about",
+    "contact": {
+      "email": "cs-5604_team2-g@vt.edu"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://search.discovery.cs.vt.edu/api/v1"
+    },
+    {
+      "url": "http://localhost:5001/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "etd",
+      "description": "Repository of Electronic Thesis and Dissertations in the US",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://vtechworks.lib.vt.edu/handle/10919/5534"
+      }
+    },
+    {
+      "name": "search",
+      "description": "Search capabilities on ETD"
+    },
+    {
+      "name": "user",
+      "description": "Operations about user"
+    }
+  ],
+  "paths": {
+    "/index": {
+      "post": {
+        "tags": [
+          "document"
+        ],
+        "summary": "Index a new ETD document",
+        "description": "Indexes the given document to the Elasticsearch index",
+        "operationId": "indexDocument",
+        "requestBody": {
+          "description": "Index a new ETD document to Elasticsearch",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Document"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string",
+                  "example": "Document created!"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad operation",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string",
+                  "example": "Document already exists!"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error!"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Document": {
+        "required": [
+          "id",
+          "metadata"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/Metadata"
+          },
+          "objects": {
+            "$ref": "#/components/schemas/Objects"
+          }
+        }
+      },
+      "Metadata": {
+        "type": "object",
+        "properties": {
+          "abstract": {
+            "type": "string",
+            "example": "The semiconductor industry's continued trend of manufacturing device features on the nanometer scale requires increased plasma processing control and improved understanding of plasma characteristics and plasma-surface interactions. This dissertation presents a series of experimental results for focus studies conducted in an inductively coupled plasma (ICP) system."
+          },
+          "advisor": {
+            "type": "string",
+            "example": "Graves, David B"
+          },
+          "author": {
+            "type": "string",
+            "example": "Titus, Monica Joy"
+          },
+          "degree": {
+            "type": "string",
+            "example": "doctorate"
+          },
+          "department": {
+            "type": "string",
+            "example": "College of Engineering"
+          },
+          "discipline": {
+            "type": "string",
+            "example": "Computer Engineering"
+          },
+          "source": {
+            "type": "string",
+            "example": "https://escholarship.org/content/qt0hn5z4f1/qt0hn5z4f1.pdf?t=mtfdwa"
+          },
+          "title": {
+            "type": "string",
+            "example": "Plasma Diagnostics and Plasma-Surface Interactions in Inductively Coupled Plasmas"
+          },
+          "university": {
+            "type": "string",
+            "example": "ucb"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int64",
+            "example": "2010"
+          }
+        }
+      },
+      "Objects": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "example": "cleaned_text"
+            },
+            "summarization": {
+              "type": "object",
+              "properties": {
+                "summarisation_text": {
+                  "type": "string",
+                  "example": "I gathered student work samples from the three students to better assess students’ literacy practices and track changes in their literacy practices. Before administering the adapted curricula, I conducted close observations in the classroom and wrote conceptual memos to capture the teacher and students’ literacy practices, using a framework for recording student and teacher talk."
+                }
+              }
+            },
+            "topics": {
+              "type": "object",
+              "properties": {
+                "topic_term": {
+                  "type": "string",
+                  "example": "{ritual,invariant,participant,problem,galaxy}"
+                }
+              }
+            },
+            "classification": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "class_name": {
+                    "type": "string",
+                    "example": "Computer Science"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "Document": {
+        "description": "ETD Document object that needs to be index",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Document"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "properties": {
+    "id": {
+      "type": "keyword"
+    },
+    "title": {
+      "type": "search_as_you_type"
+    },
+    "author": {
+      "type": "search_as_you_type"
+    },
+    "advisor": {
+      "type": "keyword"
+    },
+    "abstract": {
+      "type": "text"
+    },
+    "university": {
+      "type": "keyword"
+    },
+    "degree": {
+      "type": "keyword"
+    },
+    "year": {
+      "type": "integer"
+    },
+    "department": {
+      "type": "keyword"
+    },
+    "discipline": {
+      "type": "keyword"
+    },
+    "source": {
+      "type": "keyword"
+    },
+    "xml_path": {
+      "type": "keyword"
+    },
+    "chapters": {
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "title": {
+          "type": "text"
+        },
+        "topics": {
+          "type": "keyword"
+        },
+        "categories": {
+          "type": "keyword"
+        },
+        "summary": {
+          "type": "text"
+        }
+      }
+    }
+  }
+}

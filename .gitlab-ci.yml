@@ -1,0 +1,42 @@
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - deploy
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  image: docker:stable
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'main'
+      variables:
+        SHOULD_UPDATE_REGISTRY: "true"
+    - if: $CI_COMMIT_BRANCH != 'main'
+      variables:
+        SHOULD_UPDATE_REGISTRY: "false"
+  before_script:
+    - docker login -u "$DOCKER_USER" -p "$DOCKER_TOKEN" code.vt.edu:5005
+    - echo "Login Complete."
+  script:
+    - docker build -t code.vt.edu:5005/aaron2000/team-2-central/search:"$CI_COMMIT_SHORT_SHA" .
+    - echo "Build complete"
+after_script:
+    - >
+      if [ $SHOULD_UPDATE_REGISTRY == "true" ]; then
+        docker push code.vt.edu:5005/aaron2000/team-2-central/search:"$CI_COMMIT_SHORT_SHA"
+        docker logout
+      else
+        echo 'Registry does not need to be updated'
+      fi
+    - docker image prune -a -f
+
+
+deploy-job:
+  stage: deploy
+  image: 
+    name: bitnami/kubectl:latest
+    entrypoint: [""]
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'main'
+  script:
+  #  - kubectl --help
+    - echo "Setting the image..."
+    - kubectl -n etd set image deployment/team-2-search-container team-2-search-container=code.vt.edu:5005/aaron2000/team-2-central/search:"$CI_COMMIT_SHORT_SHA"

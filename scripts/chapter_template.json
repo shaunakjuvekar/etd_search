@@ -1,0 +1,25 @@
+{
+    "properties": {
+      "etd_id": {
+        "type": "keyword"
+      },
+      "etd_title": {
+        "type": "text"
+      },
+      "id": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text"
+      },
+      "topics": {
+        "type": "keyword"
+      },
+      "categories": {
+        "type": "keyword"
+      },
+      "summary": {
+        "type": "text"
+      }
+    }
+  }
